@@ -35,4 +35,26 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/index', 'UserController@index')->name('index')->middleware('role:user');
+Route::get('/orders', function (){
+    return view('orders');});
+Route::get('/order', function (){
+    return view('orderservice');});
+Route::get('/add', function (){
+    return view('admin.add');});
+Route::get('/home', 'AdminController@index')->name('index')->middleware('role:admin');
+Route::get('/update', function (){
+    return view('admin.update');});
+
 require __DIR__.'/auth.php';
+
+Route::resource('product', ProductController::class);
+Route::resource('order', OrderServices::class);
+
+Route::get('/indexadmin', function() {
+    return view('add.admin');
+});
+
+Route::get('/indexuser', function() {
+    return view('index');
+});
